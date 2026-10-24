@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gump art — Vrark Art</title><link rel="stylesheet" href="styles.css"></head><body><div class="simple-page"><p class="section-kicker">Catalogue</p><h2>Gump art</h2><p id="gump-status"></p><div class="notice-grid" id="gump-grid"></div></div></body></html>
+<script src="subpage-nav.js"></script><script src="gump-catalogue.js"></script><script>
+const fallback='assets/fallbacks/no-preview-available.png';
+const direct=id=>'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id);
+const preview=id=>id?'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w400':fallback;
+const files=window.VRARK_GUMP_CATALOGUE||[];
+document.querySelector('#gump-status').textContent=files.length+' gumps';
+document.querySelector('#gump-grid').innerHTML=files.map(item=>'<section class="notice-card"><h3 class="animation-title">'+item.name+'</h3><div class="animation-credit">By '+(item.contributor||'Vrark')+'</div><div class="static-frame"><img src="'+preview(item.previewId)+'" alt="'+item.name+'"></div><p class="download-links"><a download href="'+direct(item.id)+'">Download gump</a></p></section>').join('');
+</script>

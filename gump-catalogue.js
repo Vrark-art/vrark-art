@@ -1,0 +1,2 @@
+/* Generated from the root Gumps folder and Prapilk's Gump art folder. */
+window.VRARK_GUMP_CATALOGUE=[{"name":"Scroll_1 copy","id":"15UkOh2-MgvlXzAiPumw9BWRNauL5U38q","previewId":"15UkOh2-MgvlXzAiPumw9BWRNauL5U38q","contributor":"Vrark","createdTime":"2026-01-26T12:01:12.267Z","modifiedTime":"2025-09-18T11:15:22.000Z"},{"name":"Captain America","id":"1Ye4psAdK_SXqEGBu016C12-3l4R_UJp8","previewId":"1Ye4psAdK_SXqEGBu016C12-3l4R_UJp8","contributor":"Prapilk","createdTime":"2026-10-24T12:48:14.870Z","modifiedTime":"2026-10-24T12:48:07.705Z"}];
