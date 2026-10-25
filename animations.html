@@ -11,7 +11,7 @@ const slot=new URLSearchParams(location.search).get('slot');
 const catalogue=VRARK_DRIVE_CATALOGUE.concat(VRARK_CONTRIBUTOR_CATALOGUE).map(function(item){return Object.assign({contributor:'Vrark'},item);}).sort(function(a,b){return (Date.parse(VRARK_DRIVE_DATES[b.vdId]||0)||0)-(Date.parse(VRARK_DRIVE_DATES[a.vdId]||0)||0);});
 const shown=slot?catalogue.filter(x=>new RegExp('(?:\\s*-\\s*|_)'+slot+'$','i').test(x.name)):catalogue;
 const assetName=value=>String(value||'').trim().toLowerCase();
-const findNamed=(list,name)=>((list||[]).find(x=>assetName(x.name)===assetName(name))||null);
+const findNamed=(list,name)=>{const wanted=assetName(name), stripped=wanted.replace(/_(?:static|gump)$/,'');return ((list||[]).find(x=>{const actual=assetName(x.name);return actual===wanted||actual===stripped||actual.replace(/_(?:static|gump)$/,'')===stripped;})||null);};
 const relatedDownloads=item=>{
   if(slot!=='P') return '';
   const base=item.name.replace(/(?:\\s*-\\s*|_)P$/i,'').trim();
