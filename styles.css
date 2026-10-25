@@ -19,10 +19,10 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1; }
 .menu-links img { display: block; width: 138px; height: 31px; }
 .button-home { top: 24px; }.button-animations { top: 68px; }.button-h-slot { top: 112px; }.button-l-slot { top: 156px; }.button-p-slot { top: 200px; }.button-static { top: 244px; }.button-gump { top: 288px; }.button-tools { top: 332px; }.button-tutorials { top: 376px; }.button-links { top: 420px; }
 .content-panel { flex: 1; min-width: 0; min-height: 0; overflow-y: auto; background: var(--panel) url("assets/backgrounds/Amate Dark.jpg") repeat; }
-.content-inner { max-width: 860px; margin: 0 auto; padding: clamp(28px, 6vw, 78px); background: linear-gradient(90deg, rgba(21,15,12,.88), rgba(31,20,14,.78)); min-height: 600px; }
+.content-inner { box-sizing: border-box; width: 100%; max-width: 860px; margin: 0 auto; padding: clamp(28px, 6vw, 78px); background: linear-gradient(90deg, rgba(21,15,12,.88), rgba(31,20,14,.78)); min-height: 600px; }
 h2 { margin: 0 0 18px; font-size: clamp(1.8rem, 4vw, 3rem); }
-.notice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; margin-top: 36px; }
-.notice-card { padding: 14px; border: 1px solid #7d5b37; background: rgba(43, 25, 15, .86); box-shadow: inset 0 0 0 3px rgba(0,0,0,.18); }
+.notice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 18px; margin-top: 36px; }
+.notice-card { min-width: 0; padding: 14px; border: 1px solid #7d5b37; background: rgba(43, 25, 15, .86); box-shadow: inset 0 0 0 3px rgba(0,0,0,.18); }
 .notice-card h3 { margin-top: 0; font-size: 1.25rem; }
 .animation-frame { height: 220px; display: flex; align-items: center; justify-content: center; background: rgba(8, 6, 5, .42); border: 1px solid #60472f; overflow: hidden; }
 .animation-frame img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
@@ -30,6 +30,7 @@ h2 { margin: 0 0 18px; font-size: clamp(1.8rem, 4vw, 3rem); }
 .static-frame img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .animation-name { min-height: 3.2em; margin: 10px 0 0; color: #d7b67a; font-size: .82rem; line-height: 1.25; overflow-wrap: anywhere; }
 .animation-title { min-height: 3.2em; margin: 0 0 10px; font-size: .95rem; line-height: 1.25; overflow-wrap: anywhere; }
+.download-links { overflow-wrap: anywhere; word-break: break-word; }
 .animation-credit { margin: -6px 0 10px; color: #c9a56a; font-size: .82rem; font-style: italic; }
 .download-links { margin: 10px 0 0; font-size: .82rem; line-height: 1.5; }
 .download-links a, .simple-page a { color: #e2bd78; }
