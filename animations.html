@@ -9,7 +9,7 @@ const direct=id=>id?'https://drive.google.com/uc?export=download&id='+encodeURIC
 const preview=id=>id?'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w400':fallback;
 const slot=new URLSearchParams(location.search).get('slot');
 const catalogue=VRARK_DRIVE_CATALOGUE.concat(VRARK_CONTRIBUTOR_CATALOGUE).map(function(item){return Object.assign({contributor:'Vrark'},item);}).sort(function(a,b){return (Date.parse(VRARK_DRIVE_DATES[b.vdId]||0)||0)-(Date.parse(VRARK_DRIVE_DATES[a.vdId]||0)||0);});
-const shown=slot?catalogue.filter(x=>x.name.includes(' - '+slot)):catalogue;
+const shown=slot?catalogue.filter(x=>new RegExp('(?:\\s*-\\s*|_)'+slot+'$','i').test(x.name)):catalogue;
 document.querySelector('#heading').textContent=slot?slot+'-slot animations':'Animations';
 document.querySelector('#catalogue-status').textContent=shown.length+' animations';
 document.querySelector('#animation-grid').innerHTML=shown.map(function(item){var vd=direct(item.vdId),mini=direct(item.miniatureId),credit=item.contributor?'<div class="animation-credit">By '+item.contributor+'</div>':'';return '<section class="notice-card"><h3 class="animation-title">'+item.name+'</h3>'+credit+'<div class="animation-frame"><img src="'+preview(item.previewId)+'" alt="'+item.name+'"></div><p class="download-links"><a download href="'+vd+'">Download .vd</a><br>'+(mini?'<a download href="'+mini+'">Download shrink miniature</a>':'No miniature available')+'</p></section>';}).join('');
