@@ -2,15 +2,25 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Animations — Vrark Art</title><link rel="stylesheet" href="styles.css"></head><body>
 <div class="site-shell"><header class="top-banner"><img class="animated-gears" src="assets/legacy/gears-new.gif" alt="Animated gears"><img class="top-title" src="assets/legacy/top-title-v2.png?v=1" alt="Vrark Art"></header>
 <div class="site-body"><aside class="legacy-nav" aria-label="Creature navigation"><img src="assets/legacy/side-new.png" alt="Stone, chain and wood side panel"><nav class="menu-links"><a class="button-home" href="index.html"><img src="assets/buttons/home.png" alt="Home"></a><a class="button-animations" href="animations.html"><img src="assets/buttons/animations.png" alt="Animations"></a><a class="button-h-slot" href="animations.html?slot=H"><img src="assets/buttons/h-slot.png" alt="H slot"></a><a class="button-l-slot" href="animations.html?slot=L"><img src="assets/buttons/l-slot.png" alt="L slot"></a><a class="button-p-slot" href="animations.html?slot=P"><img src="assets/buttons/p-slot.png" alt="P slot"></a><a class="button-static" href="static-art.html"><img src="assets/buttons/static-art.png" alt="Static art"></a><a class="button-gump" href="gump-art.html"><img src="assets/buttons/gump-art.png" alt="Gump art"></a><a class="button-tools" href="tools.html"><img src="assets/buttons/tools.png" alt="Tools"></a><a class="button-tutorials" href="tutorials.html"><img src="assets/buttons/tutorials.png" alt="Tutorials"></a><a class="button-links" href="links.html"><img src="assets/buttons/links.png" alt="Links"></a></nav></aside>
-<main class="content-panel"><div class="content-inner"><p class="section-kicker">Catalogue</p><h2 id="heading">Animations</h2><p id="catalogue-status">Loading catalogue…</p><div class="notice-grid" id="animation-grid"></div></div></main></div><footer><a class="footer-search" href="search.html"><img src="assets/buttons/search.png" alt="Search"></a></footer></div>
-<script src="drive-catalogue.js"></script><script src="drive-contributors.js"></script><script src="drive-dates.js"></script><script>
+<main class="content-panel"><div class="content-inner"><p class="section-kicker">Catalogue</p><h2 id="heading">Animations</h2><p class="page-subtitle" id="page-subtitle">All animations</p><p id="catalogue-status">Loading catalogue…</p><div class="notice-grid" id="animation-grid"></div></div></main></div><footer><a class="footer-search" href="search.html"><img src="assets/buttons/search.png" alt="Search"></a></footer></div>
+<script src="drive-catalogue.js"></script><script src="drive-contributors.js"></script><script src="drive-dates.js"></script><script src="static-catalogue.js"></script><script src="gump-catalogue.js"></script><script>
 const fallback='assets/fallbacks/no-preview-available.png';
 const direct=id=>id?'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id):null;
 const preview=id=>id?'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w400':fallback;
 const slot=new URLSearchParams(location.search).get('slot');
 const catalogue=VRARK_DRIVE_CATALOGUE.concat(VRARK_CONTRIBUTOR_CATALOGUE).map(function(item){return Object.assign({contributor:'Vrark'},item);}).sort(function(a,b){return (Date.parse(VRARK_DRIVE_DATES[b.vdId]||0)||0)-(Date.parse(VRARK_DRIVE_DATES[a.vdId]||0)||0);});
 const shown=slot?catalogue.filter(x=>new RegExp('(?:\\s*-\\s*|_)'+slot+'$','i').test(x.name)):catalogue;
+const assetName=value=>String(value||'').trim().toLowerCase();
+const findNamed=(list,name)=>((list||[]).find(x=>assetName(x.name)===assetName(name))||null);
+const relatedDownloads=item=>{
+  if(slot!=='P') return '';
+  const base=item.name.replace(/(?:\\s*-\\s*|_)P$/i,'').trim();
+  const staticItem=findNamed(window.VRARK_STATIC_CATALOGUE,base+'_static');
+  const gumpItem=findNamed(window.VRARK_GUMP_CATALOGUE,base+'_gump');
+  return (staticItem?'<br><a download href="'+direct(staticItem.id)+'">Download static item</a>':'')+(gumpItem?'<br><a download href="'+direct(gumpItem.id)+'">Download gump</a>':'');
+};
 document.querySelector('#heading').textContent=slot?slot+'-slot animations':'Animations';
+document.querySelector('#page-subtitle').textContent=slot==='H'?'Monster slot animations':slot==='L'?'Animal slot animations':slot==='P'?'Player characters, hair and equipment animations':'All animations';
 document.querySelector('#catalogue-status').textContent=shown.length+' animations';
-document.querySelector('#animation-grid').innerHTML=shown.map(function(item){var vd=direct(item.vdId),mini=direct(item.miniatureId),credit=item.contributor?'<div class="animation-credit">By '+item.contributor+'</div>':'';return '<section class="notice-card"><h3 class="animation-title">'+item.name+'</h3>'+credit+'<div class="animation-frame"><img src="'+preview(item.previewId)+'" alt="'+item.name+'"></div><p class="download-links"><a download href="'+vd+'">Download .vd</a><br>'+(mini?'<a download href="'+mini+'">Download shrink miniature</a>':'No miniature available')+'</p></section>';}).join('');
+document.querySelector('#animation-grid').innerHTML=shown.map(function(item){var vd=direct(item.vdId),mini=direct(item.miniatureId),credit=item.contributor?'<div class="animation-credit">By '+item.contributor+'</div>':'';return '<section class="notice-card"><h3 class="animation-title">'+item.name+'</h3>'+credit+'<div class="animation-frame"><img src="'+preview(item.previewId)+'" alt="'+item.name+'"></div><p class="download-links"><a download href="'+vd+'">Download .vd</a>'+(mini?'<br><a download href="'+mini+'">Download shrink miniature</a>':'')+relatedDownloads(item)+'</p></section>';}).join('');
 </script></body></html>

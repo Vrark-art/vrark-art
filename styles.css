@@ -2,25 +2,26 @@
 * { box-sizing: border-box; }
 html { background: #100d0b url("assets/backgrounds/DarkPattern.jpg") repeat; }
 body { margin: 0; min-width: 320px; color: #eadcc4; font: 16px/1.6 Georgia, serif; }
-.site-shell { width: min(1180px, calc(100% - 28px)); margin: 22px auto; display: flex; flex-direction: column; border: 8px solid #17110e; box-shadow: 0 12px 35px #000; background: #211914 url("assets/legacy/brick2.png") repeat; overflow: hidden; }
+.site-shell { box-sizing: border-box; width: min(1650px, calc(100% - 28px)); margin: 22px auto; padding: 9px; display: flex; flex-direction: column; border: 0; box-shadow: 0 12px 35px #000; background: url("assets/legacy/top-left-corner.png") top left no-repeat, url("assets/legacy/top-right-corner.png") top right no-repeat, url("assets/legacy/bottom-left-corner.png") bottom left no-repeat, url("assets/legacy/bottom-right-corner.png") bottom right no-repeat, url("assets/legacy/top-border.png") top center repeat-x, url("assets/legacy/bottom-border.png") bottom center repeat-x, url("assets/legacy/left-border.png") left center repeat-y, url("assets/legacy/right-border.png") right center repeat-y, #211914 url("assets/legacy/brick2.png") repeat; overflow: hidden; }
 .top-banner { position: relative; flex: 0 0 163px; height: 163px; min-height: 163px; padding: 0; overflow: hidden; background: #3b2518 url("assets/legacy/top.png") repeat-x left top; background-size: auto 163px; }
 .animated-gears { position: absolute; top: 0; left: 0; width: 128px; height: 163px; object-fit: contain; image-rendering: auto; }
 .top-title { position: absolute; top: 2px; left: 50%; width: 530px; height: 158px; transform: translateX(-50%); object-fit: contain; }
 .banner-copy { padding: 15px 30px; background: rgba(33, 18, 10, .82); border: 2px solid #a67b43; box-shadow: 0 4px 12px #000; }
-.eyebrow, .section-kicker { margin: 0; color: var(--gold); text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; }
+.eyebrow, .section-kicker { display: none; margin: 0; color: var(--gold); text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; }
+.page-subtitle { margin: -10px 0 18px; color: var(--gold); letter-spacing: .08em; font-size: .78rem; }
 h1, h2, h3 { font-weight: normal; color: #f1d49a; text-shadow: 2px 2px #120b08; }
-h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1; }
+h1 { margin: 0; font-size: clamp(1.2rem, 2.5vw, 1.9rem); line-height: 1.1; }
 .subtitle { margin: 8px 0 0; font-style: italic; }
 .site-body { flex: 0 0 600px; height: 600px; min-height: 600px; display: flex; align-items: stretch; overflow: hidden; background: rgba(18, 13, 10, .72); }
-.legacy-nav { position: relative; flex: 0 0 230px; width: 230px; min-height: 600px; overflow: hidden; background: #3a3027; }
-.legacy-nav img { display: block; width: 230px; height: 600px; object-fit: contain; }
+.legacy-nav { position: relative; flex: 0 0 230px; width: 230px; min-height: 600px; overflow: hidden; background: #3a3027 url("assets/legacy/side-repeat.png") repeat-y top left; }
+.legacy-nav img { display: block; width: 230px; height: 600px; object-fit: contain; object-position: top; }
 .menu-links { position: absolute; inset: 0; }
 .menu-links a { position: absolute; left: 46px; width: 138px; height: 31px; display: block; }
 .menu-links img { display: block; width: 138px; height: 31px; }
 .button-home { top: 24px; }.button-animations { top: 68px; }.button-h-slot { top: 112px; }.button-l-slot { top: 156px; }.button-p-slot { top: 200px; }.button-static { top: 244px; }.button-gump { top: 288px; }.button-tools { top: 332px; }.button-tutorials { top: 376px; }.button-links { top: 420px; }
 .content-panel { flex: 1; min-width: 0; min-height: 0; overflow-y: auto; background: var(--panel) url("assets/backgrounds/Amate Dark.jpg") repeat; }
-.content-inner { box-sizing: border-box; width: 100%; max-width: 860px; margin: 0 auto; padding: clamp(28px, 6vw, 78px); background: linear-gradient(90deg, rgba(21,15,12,.88), rgba(31,20,14,.78)); min-height: 600px; }
-h2 { margin: 0 0 18px; font-size: clamp(1.8rem, 4vw, 3rem); }
+.content-inner { box-sizing: border-box; width: 100%; max-width: 1350px; margin: 0 auto; padding: 24px clamp(28px, 4vw, 78px) clamp(28px, 4vw, 78px); background: linear-gradient(90deg, rgba(21,15,12,.88), rgba(31,20,14,.78)); min-height: 600px; }
+h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
 .notice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 18px; margin-top: 36px; }
 .notice-card { min-width: 0; padding: 14px; border: 1px solid #7d5b37; background: rgba(43, 25, 15, .86); box-shadow: inset 0 0 0 3px rgba(0,0,0,.18); }
 .notice-card h3 { margin-top: 0; font-size: 1.25rem; }
@@ -41,8 +42,8 @@ h2 { margin: 0 0 18px; font-size: clamp(1.8rem, 4vw, 3rem); }
 .catalogue-search input { flex: 1; min-width: 0; padding: 9px 10px; border: 1px solid #7d5b37; background: #160f0c; color: #eadcc4; font: inherit; }
 .catalogue-search button { padding: 8px 14px; border: 1px solid #a67b43; background: #3b2518; color: #f1d49a; font: inherit; cursor: pointer; }
 .simple-page { width: auto; margin: 0; padding: 0; color: #eadcc4; background: transparent; border: 0; }
-.simple-page h1 { margin: 0 0 18px; font-size: clamp(1.8rem, 4vw, 3rem); }
+.simple-page h1 { margin: 0 0 18px; font-size: clamp(1.2rem, 2.2vw, 1.8rem); }
 footer { flex: 0 0 128px; height: 128px; padding: 0; display: flex; align-items: center; justify-content: center; background: #21150f url("assets/legacy/bottom.png") repeat-x left top; background-size: auto 128px; }
 .footer-search { display: block; width: 138px; height: 31px; margin: 0; }
 .footer-search img { display: block; width: 138px; height: 31px; }
-@media (max-width: 620px) { .site-shell { width: 100%; height: 100vh; margin: 0; border-width: 4px; } .top-banner { flex: 0 0 163px; height: 163px; } .animated-gears { width: 128px; height: 163px; top: 0; left: 0; } .site-body { flex: 1 1 auto; height: auto; min-height: 0; display: block; overflow-y: auto; } .legacy-nav { width: 100%; height: 150px; min-height: 150px; } .legacy-nav img { width: 100%; height: 150px; object-fit: cover; object-position: top left; } .content-panel { overflow: visible; } .content-inner { min-height: auto; padding: 30px 20px; } footer { flex-basis: 128px; } }
+@media (max-width: 620px) { .site-shell { width: 100%; height: 100vh; margin: 0; padding: 4px; } .top-banner { flex: 0 0 163px; height: 163px; } .animated-gears { width: 128px; height: 163px; top: 0; left: 0; } .site-body { flex: 1 1 auto; height: auto; min-height: 0; display: block; overflow-y: auto; } .legacy-nav { width: 100%; height: 150px; min-height: 150px; } .legacy-nav img { width: 100%; height: 150px; object-fit: cover; object-position: top left; } .content-panel { overflow: visible; } .content-inner { min-height: auto; padding: 30px 20px; } footer { flex-basis: 128px; } }
