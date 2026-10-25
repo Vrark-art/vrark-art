@@ -13,7 +13,7 @@ const shown=slot?catalogue.filter(x=>new RegExp('(?:\\s*-\\s*|_)'+slot+'$','i').
 const assetName=value=>String(value||'').trim().toLowerCase();
 const findNamed=(list,name)=>{const wanted=assetName(name), stripped=wanted.replace(/_(?:static|gump)$/,'');return ((list||[]).find(x=>{const actual=assetName(x.name);return actual===wanted||actual===stripped||actual.replace(/_(?:static|gump)$/,'')===stripped;})||null);};
 const relatedDownloads=item=>{
-  if(slot!=='P') return '';
+  if(!/(?:\\s*-\\s*|_)P$/i.test(item.name)) return '';
   const base=item.name.replace(/(?:\\s*-\\s*|_)P$/i,'').trim();
   const staticItem=findNamed(window.VRARK_STATIC_CATALOGUE,base+'_static');
   const gumpItem=findNamed(window.VRARK_GUMP_CATALOGUE,base+'_gump');
