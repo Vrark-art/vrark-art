@@ -8,7 +8,7 @@ body { margin: 0; min-width: 320px; color: #eadcc4; font: 16px/1.6 Georgia, seri
 .top-title { position: absolute; top: 2px; left: 50%; width: 530px; height: 158px; transform: translateX(-50%); object-fit: contain; }
 .banner-copy { padding: 15px 30px; background: rgba(33, 18, 10, .82); border: 2px solid #a67b43; box-shadow: 0 4px 12px #000; }
 .eyebrow, .section-kicker { display: none; margin: 0; color: var(--gold); text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; }
-.page-subtitle { margin: -10px 0 18px; color: var(--gold); letter-spacing: .08em; font-size: .78rem; }
+.page-subtitle { margin: 8px 0 18px; color: var(--gold); letter-spacing: .08em; font-size: .78rem; }
 h1, h2, h3 { font-weight: normal; color: #f1d49a; text-shadow: 2px 2px #120b08; }
 h1 { margin: 0; font-size: clamp(1.2rem, 2.5vw, 1.9rem); line-height: 1.1; }
 .subtitle { margin: 8px 0 0; font-style: italic; }
