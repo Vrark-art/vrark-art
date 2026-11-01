@@ -35,8 +35,17 @@
   document.addEventListener('click', event => {
     const link = event.target.closest('a[data-count-id]');
     if (!link) return;
-    const beacon = new Image();
-    beacon.src = endpoint + '?action=count&id=' + encodeURIComponent(link.dataset.countId) + '&name=' + encodeURIComponent(link.dataset.countName || '');
+    const callback = 'vrarkCount_' + Date.now();
+    window[callback] = result => {
+      const target = link.querySelector('.download-count');
+      if (target && result && typeof result.downloads !== 'undefined') {
+        target.textContent = 'Total downloads: ' + result.downloads;
+      }
+      delete window[callback];
+    };
+    const script = document.createElement('script');
+    script.src = endpoint + '?action=count&id=' + encodeURIComponent(link.dataset.countId) + '&name=' + encodeURIComponent(link.dataset.countName || '') + '&callback=' + callback;
+    document.head.appendChild(script);
   });
 
   window.updateDownloadCounts = updateDownloadCounts;
