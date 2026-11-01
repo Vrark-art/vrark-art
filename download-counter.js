@@ -11,8 +11,8 @@
       link.dataset.countName = link.textContent.trim();
       const span = document.createElement('span');
       span.className = 'download-count';
-      span.textContent = ' (total downloads: …)';
-      link.appendChild(span);
+      span.textContent = 'Total downloads: …';
+      link.insertAdjacentElement('afterend', span);
     });
   }
 
@@ -25,7 +25,7 @@
     window[callback] = counts => {
       links.forEach(link => {
         const target = link.querySelector('.download-count');
-        if (target) target.textContent = ' (total downloads: ' + (counts[link.dataset.countId] || 0) + ')';
+        if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
       });
       delete window[callback];
     };
