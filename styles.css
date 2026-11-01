@@ -37,6 +37,10 @@ h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
 .download-links a, .simple-page a { color: #e2bd78; }
 .download-count { display: block; margin-top: 3px; color: #806044; font-size: .7rem; line-height: 1.2; }
 .download-count + br { display: none; }
+.animation-frame img, .static-frame img { cursor: zoom-in; }
+.preview-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 32px; background: rgba(0,0,0,.86); cursor: zoom-out; }
+.preview-modal img { display: block; max-width: 95vw; max-height: 92vh; width: auto; height: auto; object-fit: contain; image-rendering: auto; cursor: default; }
+.preview-modal-close { position: absolute; top: 18px; right: 24px; width: 42px; height: 42px; border: 1px solid #c9a56a; background: #24160f; color: #f1d49a; font: 28px/1 Georgia, serif; cursor: pointer; }
 .tool-list h3 { margin: 28px 0 2px; font-size: 1.1rem; }
 .tool-list h3:first-child { margin-top: 24px; }
 .tool-list p { margin: 0 0 16px; }
