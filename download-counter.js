@@ -42,6 +42,8 @@
   });
 
   window.updateDownloadCounts = updateDownloadCounts;
-  new MutationObserver(updateDownloadCounts).observe(document.body, { childList: true, subtree: true });
-  document.addEventListener('DOMContentLoaded', updateDownloadCounts);
+  document.addEventListener('DOMContentLoaded', () => {
+    updateDownloadCounts();
+    new MutationObserver(updateDownloadCounts).observe(document.body, { childList: true, subtree: true });
+  });
 })();
