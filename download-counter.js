@@ -59,10 +59,31 @@
     image.src = endpoint + '/api/visit?page=' + encodeURIComponent(page);
   }
 
+  function addVisitLabel() {
+    const nav = document.querySelector('.legacy-nav');
+    if (!nav || nav.querySelector('.site-visit-count')) return;
+    const label = document.createElement('div');
+    label.className = 'site-visit-count';
+    label.setAttribute('aria-live', 'polite');
+    label.textContent = 'Page visits: …';
+    nav.appendChild(label);
+  }
+
+  function updateVisitCount() {
+    addVisitLabel();
+    const label = document.querySelector('.site-visit-count');
+    if (!label) return;
+    fetch(endpoint + '/api/total-visits')
+      .then(response => response.json())
+      .then(data => { label.textContent = 'Page visits: ' + (data.visits || 0); })
+      .catch(() => {});
+  }
+
   window.updateDownloadCounts = updateDownloadCounts;
 
   document.addEventListener('DOMContentLoaded', () => {
     recordVisit();
+    setTimeout(updateVisitCount, 300);
     updateDownloadCounts();
     new MutationObserver(updateDownloadCounts).observe(document.body, { childList: true, subtree: true });
     let attempts = 0;
