@@ -65,7 +65,7 @@
     const label = document.createElement('div');
     label.className = 'site-visit-count';
     label.setAttribute('aria-live', 'polite');
-    label.textContent = 'Page visits:\n…';
+    label.textContent = '…';
     nav.appendChild(label);
   }
 
@@ -75,7 +75,7 @@
     if (!label) return;
     fetch(endpoint + '/api/total-visits')
       .then(response => response.json())
-      .then(data => { label.textContent = 'Page visits:\n' + (data.visits || 0); })
+      .then(data => { label.textContent = String(data.visits || 0); })
       .catch(() => {});
   }
 
