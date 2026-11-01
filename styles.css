@@ -33,7 +33,7 @@ h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
 .animation-title { min-height: 3.2em; margin: 0 0 10px; font-size: .82rem; line-height: 1.25; font-weight: 700; font-style: normal; overflow-wrap: anywhere; }
 .download-links { overflow-wrap: anywhere; word-break: break-word; }
 .animation-credit { margin: -6px 0 10px; color: #c9a56a; font-size: .82rem; font-style: italic; }
-.download-links { margin: 10px 0 0; font-size: .82rem; line-height: 1.5; }
+.download-links { margin: 10px 0 -4px; font-size: .82rem; line-height: 1.5; }
 .download-links a, .simple-page a { color: #e2bd78; }
 .download-count { display: block; margin-top: 3px; color: #806044; font-size: .7rem; line-height: 1.2; }
 .tool-list h3 { margin: 28px 0 2px; font-size: 1.1rem; }
