@@ -15,12 +15,12 @@ h1 { margin: 0; font-size: clamp(1.2rem, 2.5vw, 1.9rem); line-height: 1.1; }
 .site-body { flex: 0 0 600px; height: 600px; min-height: 600px; display: flex; align-items: stretch; overflow: hidden; background: rgba(18, 13, 10, .72); }
 .legacy-nav { position: relative; flex: 0 0 230px; width: 230px; min-height: 600px; overflow: hidden; background: #3a3027 url("assets/legacy/side-repeat.png") repeat-y top left; }
 .legacy-nav img { display: block; width: 230px; height: 600px; object-fit: contain; object-position: top; }
-.legacy-nav > img { transform: translateY(-18px); }
+.legacy-nav > img { transform: translateY(-70px); }
 .menu-links { position: absolute; inset: 0; }
 .menu-links a { position: absolute; left: 46px; width: 138px; height: 31px; display: block; }
 .menu-links img { display: block; width: 138px; height: 31px; }
 .button-home { top: 14px; }.button-animations { top: 58px; }.button-h-slot { top: 102px; }.button-l-slot { top: 146px; }.button-p-slot { top: 190px; }.button-static { top: 234px; }.button-gump { top: 278px; }.button-tools { top: 322px; }.button-tutorials { top: 366px; }.button-links { top: 410px; }
-.site-visit-count { position: absolute; top: 552px; left: 39px; width: 152px; padding: 5px 6px; border: 1px solid rgba(125,91,55,.7); border-radius: 2px; background: rgba(25,19,16,.78); color: #c9a56a; font-size: .72rem; line-height: 1.2; text-align: center; text-shadow: 1px 1px #120b08; white-space: pre-line; }
+.site-visit-count { position: absolute; top: 454px; left: 46px; width: 138px; height: 31px; padding: 2px 4px; background: url("assets/buttons/Page-visits.png") center/138px 31px no-repeat; color: #f1d49a; font-size: .62rem; line-height: 1.05; text-align: center; text-shadow: 1px 1px #120b08; white-space: pre-line; }
 .content-panel { flex: 1; min-width: 0; min-height: 0; overflow-y: auto; background: var(--panel) url("assets/backgrounds/Amate Dark.jpg") repeat; }
 .content-inner { box-sizing: border-box; width: 100%; max-width: 1350px; margin: 0 auto; padding: 24px clamp(28px, 4vw, 78px) clamp(28px, 4vw, 78px); background: linear-gradient(90deg, rgba(21,15,12,.88), rgba(31,20,14,.78)); min-height: 600px; }
 h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
@@ -54,4 +54,4 @@ h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
 footer { flex: 0 0 128px; height: 128px; padding: 0; display: flex; align-items: center; justify-content: center; background: #21150f url("assets/legacy/bottom.png") repeat-x left top; background-size: auto 128px; }
 .footer-search { display: block; width: 138px; height: 31px; margin: 0; }
 .footer-search img { display: block; width: 138px; height: 31px; }
-@media (max-width: 620px) { .site-shell { width: 100%; height: 100vh; margin: 0; padding: 4px; } .top-banner { flex: 0 0 163px; height: 163px; } .animated-gears { width: 128px; height: 163px; top: 0; left: 0; } .site-body { flex: 1 1 auto; height: auto; min-height: 0; display: block; overflow-y: auto; } .legacy-nav { width: 100%; height: 150px; min-height: 150px; } .legacy-nav img { width: 100%; height: 150px; object-fit: cover; object-position: top left; } .legacy-nav > img { transform: none; } .site-visit-count { top: 126px; left: 50%; width: 152px; transform: translateX(-50%); } .content-panel { overflow: visible; } .content-inner { min-height: auto; padding: 30px 20px; } footer { flex-basis: 128px; } }
+@media (max-width: 620px) { .site-shell { width: 100%; height: 100vh; margin: 0; padding: 4px; } .top-banner { flex: 0 0 163px; height: 163px; } .animated-gears { width: 128px; height: 163px; top: 0; left: 0; } .site-body { flex: 1 1 auto; height: auto; min-height: 0; display: block; overflow-y: auto; } .legacy-nav { width: 100%; height: 150px; min-height: 150px; } .legacy-nav img { width: 100%; height: 150px; object-fit: cover; object-position: top left; } .legacy-nav > img { transform: none; } .site-visit-count { top: 126px; left: 50%; width: 138px; height: 31px; transform: translateX(-50%); } .content-panel { overflow: visible; } .content-inner { min-height: auto; padding: 30px 20px; } footer { flex-basis: 128px; } }
