@@ -1,13 +1,19 @@
 (function () {
-  const endpoint = 'https://script.google.com/macros/s/AKfycbzw2mVxX-kpx3IhbhnOAX5HMT82KcFBPxiKaMQdTHYtk76gaTVZMA3ebfz9kBxXSEqnyw/exec';
+  const endpoint = 'https://vrark-art-counter.vrark-art.workers.dev';
   let lastLookupKey = '';
+
   function prepareLinks() {
     document.querySelectorAll('a[download]').forEach(link => {
       if (link.dataset.countId || /shrink miniature/i.test(link.textContent)) return;
-      const id = new URL(link.href, location.href).searchParams.get('id');
+
+      const original = new URL(link.href, location.href);
+      const id = original.searchParams.get('id');
       if (!id) return;
+
       link.dataset.countId = id;
       link.dataset.countName = link.textContent.trim();
+      link.href = endpoint + '/download?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(link.dataset.countName);
+
       const span = document.createElement('span');
       span.className = 'download-count';
       span.textContent = 'Total downloads: …';
@@ -20,53 +26,43 @@
     const links = Array.from(document.querySelectorAll('a[data-count-id]'));
     const ids = [...new Set(links.map(link => link.dataset.countId))];
     if (!ids.length) return;
+
     const lookupKey = ids.slice().sort().join(',');
     if (lookupKey === lastLookupKey) return;
     lastLookupKey = lookupKey;
+
     const batches = [];
     for (let i = 0; i < ids.length; i += 40) batches.push(ids.slice(i, i + 40));
+
     const requestBatch = batchIndex => {
       if (batchIndex >= batches.length) return;
       const batch = batches[batchIndex];
-      const callback = 'vrarkDownloadCounts_' + Date.now() + '_' + batchIndex;
-      window[callback] = counts => {
-        links.forEach(link => {
-          if (!batch.includes(link.dataset.countId)) return;
-          const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
-          if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
-        });
-        delete window[callback];
-        setTimeout(() => requestBatch(batchIndex + 1), 100);
-      };
-      const script = document.createElement('script');
-      script.src = endpoint + '?action=get&ids=' + encodeURIComponent(batch.join(',')) + '&callback=' + callback;
-      script.onerror = () => {
-        delete window[callback];
-        setTimeout(() => requestBatch(batchIndex + 1), 100);
-      };
-      document.head.appendChild(script);
+      fetch(endpoint + '/api/counts?ids=' + encodeURIComponent(batch.join(',')))
+        .then(response => response.json())
+        .then(counts => {
+          links.forEach(link => {
+            if (!batch.includes(link.dataset.countId)) return;
+            const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
+            if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
+          });
+        })
+        .catch(() => {})
+        .finally(() => setTimeout(() => requestBatch(batchIndex + 1), 100));
     };
+
     requestBatch(0);
   }
 
-  document.addEventListener('click', event => {
-    const link = event.target.closest('a[data-count-id]');
-    if (!link) return;
-    const callback = 'vrarkCount_' + Date.now();
-    window[callback] = result => {
-      const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
-      if (target && result && typeof result.downloads !== 'undefined') {
-        target.textContent = 'Total downloads: ' + result.downloads;
-      }
-      delete window[callback];
-    };
-    const script = document.createElement('script');
-    script.src = endpoint + '?action=count&id=' + encodeURIComponent(link.dataset.countId) + '&name=' + encodeURIComponent(link.dataset.countName || '') + '&callback=' + callback;
-    document.head.appendChild(script);
-  });
+  function recordVisit() {
+    const page = location.pathname.replace(/^\//, '').replace(/\.html$/, '') || 'index';
+    const image = new Image();
+    image.src = endpoint + '/api/visit?page=' + encodeURIComponent(page);
+  }
 
   window.updateDownloadCounts = updateDownloadCounts;
+
   document.addEventListener('DOMContentLoaded', () => {
+    recordVisit();
     updateDownloadCounts();
     new MutationObserver(updateDownloadCounts).observe(document.body, { childList: true, subtree: true });
     let attempts = 0;
