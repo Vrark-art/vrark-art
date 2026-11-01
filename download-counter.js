@@ -52,5 +52,10 @@
   document.addEventListener('DOMContentLoaded', () => {
     updateDownloadCounts();
     new MutationObserver(updateDownloadCounts).observe(document.body, { childList: true, subtree: true });
+    let attempts = 0;
+    const retry = setInterval(() => {
+      updateDownloadCounts();
+      if (++attempts >= 10) clearInterval(retry);
+    }, 500);
   });
 })();
