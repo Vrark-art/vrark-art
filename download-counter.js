@@ -22,7 +22,7 @@
     const callback = 'vrarkDownloadCounts_' + Date.now();
     window[callback] = counts => {
       links.forEach(link => {
-        const target = link.querySelector('.download-count');
+        const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
         if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
       });
       delete window[callback];
@@ -37,7 +37,7 @@
     if (!link) return;
     const callback = 'vrarkCount_' + Date.now();
     window[callback] = result => {
-      const target = link.querySelector('.download-count');
+      const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
       if (target && result && typeof result.downloads !== 'undefined') {
         target.textContent = 'Total downloads: ' + result.downloads;
       }
