@@ -1,5 +1,5 @@
 (function () {
-  const endpoint = 'https://script.google.com/macros/s/AKfycbwKwAxJbxvetl3cjpGXZKPTLv-CAlxIIIuwFUZ1-E4cODkcj-6Y67KcGjy2hSjeXq6K/exec';
+  const endpoint = 'https://script.google.com/macros/s/AKfycbzw2mVxX-kpx3IhbhnOAX5HMT82KcFBPxiKaMQdTHYtk76gaTVZMA3ebfz9kBxXSEqnyw/exec';
   function prepareLinks() {
     document.querySelectorAll('a[download]').forEach(link => {
       if (link.dataset.countId || /shrink miniature/i.test(link.textContent)) return;
