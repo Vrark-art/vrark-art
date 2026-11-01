@@ -1,5 +1,6 @@
 (function () {
   const endpoint = 'https://script.google.com/macros/s/AKfycbzw2mVxX-kpx3IhbhnOAX5HMT82KcFBPxiKaMQdTHYtk76gaTVZMA3ebfz9kBxXSEqnyw/exec';
+  let lastLookupKey = '';
   function prepareLinks() {
     document.querySelectorAll('a[download]').forEach(link => {
       if (link.dataset.countId || /shrink miniature/i.test(link.textContent)) return;
@@ -19,6 +20,9 @@
     const links = Array.from(document.querySelectorAll('a[data-count-id]'));
     const ids = [...new Set(links.map(link => link.dataset.countId))];
     if (!ids.length) return;
+    const lookupKey = ids.slice().sort().join(',');
+    if (lookupKey === lastLookupKey) return;
+    lastLookupKey = lookupKey;
     const batches = [];
     for (let i = 0; i < ids.length; i += 40) batches.push(ids.slice(i, i + 40));
     batches.forEach((batch, batchIndex) => {
