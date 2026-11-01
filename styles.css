@@ -36,6 +36,7 @@ h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
 .download-links { margin: 10px 0 -4px; font-size: .82rem; line-height: 1.5; }
 .download-links a, .simple-page a { color: #e2bd78; }
 .download-count { display: block; margin-top: 3px; color: #806044; font-size: .7rem; line-height: 1.2; }
+.download-count + br { display: none; }
 .tool-list h3 { margin: 28px 0 2px; font-size: 1.1rem; }
 .tool-list h3:first-child { margin-top: 24px; }
 .tool-list p { margin: 0 0 16px; }

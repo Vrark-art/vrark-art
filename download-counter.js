@@ -1,10 +1,8 @@
 (function () {
   const endpoint = 'https://script.google.com/macros/s/AKfycbwKwAxJbxvetl3cjpGXZKPTLv-CAlxIIIuwFUZ1-E4cODkcj-6Y67KcGjy2hSjeXq6K/exec';
-  const countedLabels = /^(Download \.vd|Download static item|Download gump|Download file)/i;
-
   function prepareLinks() {
     document.querySelectorAll('a[download]').forEach(link => {
-      if (link.dataset.countId || !countedLabels.test(link.textContent.trim())) return;
+      if (link.dataset.countId || /shrink miniature/i.test(link.textContent)) return;
       const id = new URL(link.href, location.href).searchParams.get('id');
       if (!id) return;
       link.dataset.countId = id;
