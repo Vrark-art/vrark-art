@@ -20,7 +20,7 @@ h1 { margin: 0; font-size: clamp(1.2rem, 2.5vw, 1.9rem); line-height: 1.1; }
 .menu-links a { position: absolute; left: 46px; width: 138px; height: 31px; display: block; }
 .menu-links img { display: block; width: 138px; height: 31px; }
 .button-home { top: 14px; }.button-animations { top: 58px; }.button-h-slot { top: 102px; }.button-l-slot { top: 146px; }.button-p-slot { top: 190px; }.button-static { top: 234px; }.button-gump { top: 278px; }.button-tools { top: 322px; }.button-tutorials { top: 366px; }.button-links { top: 410px; }
-.site-visit-count { position: absolute; left: 0; right: 0; top: 560px; color: #806044; font-size: .72rem; line-height: 1.2; text-align: center; text-shadow: 1px 1px #120b08; }
+.site-visit-count { position: absolute; left: 0; right: 0; top: 578px; color: #2b190f; font-size: .72rem; line-height: 1.2; text-align: center; text-shadow: 1px 1px rgba(0,0,0,.35); }
 .content-panel { flex: 1; min-width: 0; min-height: 0; overflow-y: auto; background: var(--panel) url("assets/backgrounds/Amate Dark.jpg") repeat; }
 .content-inner { box-sizing: border-box; width: 100%; max-width: 1350px; margin: 0 auto; padding: 24px clamp(28px, 4vw, 78px) clamp(28px, 4vw, 78px); background: linear-gradient(90deg, rgba(21,15,12,.88), rgba(31,20,14,.78)); min-height: 600px; }
 h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
