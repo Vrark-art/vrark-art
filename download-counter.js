@@ -19,17 +19,22 @@
     const links = Array.from(document.querySelectorAll('a[data-count-id]'));
     const ids = [...new Set(links.map(link => link.dataset.countId))];
     if (!ids.length) return;
-    const callback = 'vrarkDownloadCounts_' + Date.now();
-    window[callback] = counts => {
-      links.forEach(link => {
-        const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
-        if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
-      });
-      delete window[callback];
-    };
-    const script = document.createElement('script');
-    script.src = endpoint + '?action=get&ids=' + encodeURIComponent(ids.join(',')) + '&callback=' + callback;
-    document.head.appendChild(script);
+    const batches = [];
+    for (let i = 0; i < ids.length; i += 40) batches.push(ids.slice(i, i + 40));
+    batches.forEach((batch, batchIndex) => {
+      const callback = 'vrarkDownloadCounts_' + Date.now() + '_' + batchIndex;
+      window[callback] = counts => {
+        links.forEach(link => {
+          if (!batch.includes(link.dataset.countId)) return;
+          const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
+          if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
+        });
+        delete window[callback];
+      };
+      const script = document.createElement('script');
+      script.src = endpoint + '?action=get&ids=' + encodeURIComponent(batch.join(',')) + '&callback=' + callback;
+      document.head.appendChild(script);
+    });
   }
 
   document.addEventListener('click', event => {
