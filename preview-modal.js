@@ -1,7 +1,7 @@
 (function () {
   function sourceFor(img) {
     const match = img.src.match(/[?&]id=([^&]+)/);
-    return match ? 'https://drive.google.com/uc?export=download&id=' + encodeURIComponent(match[1]) : img.src;
+    return match ? 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(match[1]) + '&sz=w2000' : img.src;
   }
 
   function closeModal() {
