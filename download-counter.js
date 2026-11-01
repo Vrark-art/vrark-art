@@ -25,7 +25,9 @@
     lastLookupKey = lookupKey;
     const batches = [];
     for (let i = 0; i < ids.length; i += 40) batches.push(ids.slice(i, i + 40));
-    batches.forEach((batch, batchIndex) => {
+    const requestBatch = batchIndex => {
+      if (batchIndex >= batches.length) return;
+      const batch = batches[batchIndex];
       const callback = 'vrarkDownloadCounts_' + Date.now() + '_' + batchIndex;
       window[callback] = counts => {
         links.forEach(link => {
@@ -34,11 +36,17 @@
           if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
         });
         delete window[callback];
+        setTimeout(() => requestBatch(batchIndex + 1), 100);
       };
       const script = document.createElement('script');
       script.src = endpoint + '?action=get&ids=' + encodeURIComponent(batch.join(',')) + '&callback=' + callback;
+      script.onerror = () => {
+        delete window[callback];
+        setTimeout(() => requestBatch(batchIndex + 1), 100);
+      };
       document.head.appendChild(script);
-    });
+    };
+    requestBatch(0);
   }
 
   document.addEventListener('click', event => {
