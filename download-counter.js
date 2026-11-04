@@ -54,6 +54,13 @@
   }
 
   function recordVisit() {
+    const sessionKey = 'vrark-page-visit-recorded-v1';
+    try {
+      if (sessionStorage.getItem(sessionKey)) return;
+      sessionStorage.setItem(sessionKey, '1');
+    } catch (_) {
+      // If storage is unavailable, continue with the normal visit request.
+    }
     const page = location.pathname.replace(/^\//, '').replace(/\.html$/, '') || 'index';
     const image = new Image();
     image.src = endpoint + '/api/visit?page=' + encodeURIComponent(page);
