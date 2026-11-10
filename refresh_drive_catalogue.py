@@ -25,6 +25,7 @@ ROOT_ID = "1Ul1f-0Q7wg9_R19sMJXd4LPbbtc5Fwo2"
 WOW_EXPORT_ID = "1bd1EjfHBvbawVvwzMkYFwZIh3E4NxRfx"
 EQUIPMENT_ID = "1o4bDBFEEvejpungLx23uYFULPAgNrtyU"
 STATIC_ART_ID = "1bjh2n_k0BG-dkIqCAr8m_rJTR-VPxiwc"
+SLICED_ART_ID = "1GgBNBylziHEEIu29JEjV4lgiCUEaZzrR"
 GUMPS_ID = "1S1N2u18SzLNG4mVgDjsquFVL7x5u95np"
 PRAPILK_GUMP_ID = "10l39L46tqVuKpjjHamg6SACH1Xa0u5EI"
 SITE_URL = "https://vrark-art.github.io/vrark-art/"
@@ -117,7 +118,7 @@ def make_equipment_entries(service):
 
 
 def make_static_entries(service):
-    """Collect static-art files recursively, excluding the sliced-art branch."""
+    """Collect ordinary static-art files recursively, excluding the sliced-art branch."""
     entries = []
 
     def walk(folder_id, category):
@@ -137,6 +138,68 @@ def make_static_entries(service):
     for item in children(service, EQUIPMENT_ID):
         if item["mimeType"].startswith("image/") and Path(item["name"]).stem.lower().endswith("_static"):
             entries.append({"name": Path(item["name"]).stem[:-7].rstrip(" _-"), "id": item["id"], "previewId": item["id"], "category": "Equipment", "contributor": "Vrark", "mimeType": item["mimeType"], "createdTime": item.get("createdTime"), "modifiedTime": item.get("modifiedTime")})
+    return entries
+
+
+def make_sliced_static_entries(service):
+    """Import sliced-art ZIP files and pair them with *_preview images."""
+    files = children(service, SLICED_ART_ID)
+    previews = {
+        Path(item["name"]).stem[:-8].rstrip(" _-"): item
+        for item in files
+        if item["mimeType"].startswith("image/")
+        and Path(item["name"]).stem.lower().endswith("_preview")
+    }
+    entries = []
+    for item in files:
+        name = item["name"]
+        lower = name.lower()
+        if not (lower.endswith(".zip") or "zip" in item["mimeType"]):
+            continue
+        base = Path(name).stem
+        preview = previews.get(base)
+        entries.append({
+            "name": base,
+            "id": item["id"],
+            "previewId": preview.get("id") if preview else None,
+            "category": "sliced art",
+            "contributor": "Vrark",
+            "mimeType": item["mimeType"],
+            "createdTime": item.get("createdTime"),
+            "modifiedTime": item.get("modifiedTime"),
+        })
+    return entries
+
+
+def make_contributor_static_entries(service):
+    """Import Static art subfolders from contributor directories."""
+    entries = []
+
+    def walk(folder_id, contributor, category="Static art"):
+        for item in children(service, folder_id):
+            if item["mimeType"] == "application/vnd.google-apps.folder":
+                walk(item["id"], contributor, category)
+                continue
+            name = item["name"]
+            lower = name.lower()
+            is_image = item["mimeType"].startswith("image/")
+            is_archive = lower.endswith((".zip", ".rar", ".7z")) or "zip" in item["mimeType"] or "rar" in item["mimeType"]
+            if is_image or is_archive:
+                entries.append({
+                    "name": Path(name).stem,
+                    "id": item["id"],
+                    "previewId": item["id"] if is_image else None,
+                    "category": category,
+                    "contributor": contributor,
+                    "mimeType": item["mimeType"],
+                    "createdTime": item.get("createdTime"),
+                    "modifiedTime": item.get("modifiedTime"),
+                })
+
+    for contributor, folder_id in CONTRIBUTORS.items():
+        for item in children(service, folder_id):
+            if item["mimeType"] == "application/vnd.google-apps.folder" and item["name"].strip().lower() == "static art":
+                walk(item["id"], contributor)
     return entries
 
 
@@ -205,13 +268,13 @@ def main():
     dates.update(equipment_dates)
     base.extend(wow)
     base.extend(equipment)
-    static = make_static_entries(service)
+    static = make_static_entries(service) + make_sliced_static_entries(service) + make_contributor_static_entries(service)
     gumps = make_gump_entries(service)
     gumps.extend(make_named_gump_entries(service, [(ROOT_ID, "Vrark"), (EQUIPMENT_ID, "Vrark")] + [(folder_id, contributor) for contributor, folder_id in CONTRIBUTORS.items()]))
     write_js("drive-catalogue.js", "VRARK_DRIVE_CATALOGUE", base, "Generated from the current Vrark Art root Drive folder.")
     write_js("drive-contributors.js", "VRARK_CONTRIBUTOR_CATALOGUE", extras, "Generated from the Dramoor, Lassa and Prapilk Drive folders.")
     write_js("drive-dates.js", "VRARK_DRIVE_DATES", dates, "Drive upload timestamps for chronological catalogue ordering.")
-    write_js("static-catalogue.js", "VRARK_STATIC_CATALOGUE", static, "Generated from the static-art Drive folders; sliced art is excluded.")
+    write_js("static-catalogue.js", "VRARK_STATIC_CATALOGUE", static, "Generated from the static-art and sliced-art Drive folders.")
     write_js("gump-catalogue.js", "VRARK_GUMP_CATALOGUE", gumps, "Generated from the root Gumps folder and Prapilk's Gump art folder.")
     current = ({"id": x["vdId"], "name": x["name"], "kind": "Animation"} for x in base + extras)
     current = list(current) + [{"id": x["id"], "name": x["name"], "kind": "Static art"} for x in static] + [{"id": x["id"], "name": x["name"], "kind": "Gump art"} for x in gumps]
