@@ -97,6 +97,9 @@ footer { flex: 0 0 128px; height: 128px; padding: 0; display: flex; align-items:
     height: auto;
     padding: 12px 8px 16px;
     background-position: top left;
+    background-color: #3a3027;
+    background-image: url("assets/legacy/brick2.png");
+    background-repeat: repeat;
   }
 
   .legacy-nav > img {
