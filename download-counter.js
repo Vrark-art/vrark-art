@@ -117,7 +117,7 @@
     recordVisit();
     setTimeout(updateVisitCount, 300);
     updateDownloadCounts();
-    new MutationObserver(updateDownloadCounts).observe(document.body, { childList: true, subtree: true });
+    new MutationObserver(updateDownloadCounts).observe(document.documentElement, { childList: true, subtree: true });
     let attempts = 0;
     const retry = setInterval(() => {
       updateDownloadCounts();
