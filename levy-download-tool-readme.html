@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Levy's download tool — Vrark Art</title>
+<link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+<div class="simple-page">
+  <p class="section-kicker">Tools</p>
+  <h1>Levy's download tool for Vrark-Art</h1>
+  <p>A small program for browsing the monster (H) and animal/mount (L) animations from the Vrark Art website. You can preview them, change their colours and sort them into your own folders.</p>
+
+  <div class="tool-list">
+    <h3>Before you start</h3>
+    <p>You need Python 3 installed. If you do not have it, download it from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">python.org</a> and tick <strong>Add python.exe to PATH</strong> during installation. You do not need to install anything else.</p>
+
+    <h3>How to use it</h3>
+    <p><strong>Step 1 — Download the animations.</strong><br>Double-click <strong>download.bat</strong>. A black window opens and starts downloading all animations into the <strong>H</strong> and <strong>L</strong> folders. It is several GB, so it may take a while. You can close the window at any time and run it again later; it continues where it stopped.</p>
+    <p><strong>Step 2 — Start the viewer.</strong><br>Double-click <strong>start.bat</strong>. Your browser opens the viewer at <strong>http://127.0.0.1:8766/</strong>. Keep the black window open while using the viewer.</p>
+    <p><strong>Step 3 — Browse.</strong><br>Pick H or L at the top, choose an animation on the left and play with it in the middle. If you downloaded more files while the viewer was open, click <strong>Refresh list</strong>.</p>
+
+    <h3>Changing colours (hues)</h3>
+    <p>The viewer does not include a <strong>hues.mul</strong> file. You can click <strong>Load hues.mul...</strong> in the Hue panel and choose your own file, or use the colour picker in the same panel to tint the animation.</p>
+
+    <h3>Sorting your animations</h3>
+    <p>Click <strong>+ New folder</strong> to make a folder, then move the selected animation into it with the buttons on the right, by dragging it onto a folder, or with <strong>Shift</strong> plus the number keys.</p>
+    <p><strong>Delete</strong> does not permanently delete anything. The file goes to the <strong>_trash</strong> folder and can be restored with <strong>Ctrl+Z</strong>.</p>
+    <p>Files you moved or deleted will not be downloaded again when you run <strong>download.bat</strong>.</p>
+
+    <h3>If something goes wrong</h3>
+    <p><strong>Python was not found:</strong> install Python as described above and try again.</p>
+    <p><strong>Some files failed to download:</strong> Google Drive sometimes blocks too many downloads. Run <strong>download.bat</strong> again.</p>
+    <p><strong>The port is already in use:</strong> close other copies of the viewer, or ask the person who supplied it for a different port.</p>
+    <p><strong>The viewer is empty:</strong> download the animations first, then click <strong>Refresh list</strong>.</p>
+
+    <h3>What is in the folder</h3>
+    <p><strong>H, L</strong> — downloaded animations<br><strong>_trash</strong> — animations removed in the viewer<br><strong>hues.mul</strong> — your own hues file, if loaded<br><strong>_app</strong> — the program itself</p>
+  </div>
+</div>
+<script src="subpage-nav.js"></script>
+</body>
+</html>
