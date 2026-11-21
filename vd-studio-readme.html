@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VD Studio — Vrark Art</title>
+<link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+<div class="simple-page">
+  <p class="section-kicker">Tools</p>
+  <h1>VD Studio</h1>
+  <p>VD Studio turns rigged 3D models (<strong>.glb</strong>, <strong>.gltf</strong> and <strong>.fbx</strong>) into Ultima Online <strong>.vd</strong> animation files. It runs on your own computer in your browser; nothing is uploaded anywhere.</p>
+
+  <div class="tool-list">
+    <h3>What you need</h3>
+    <p>Windows, macOS and Linux are supported. You need <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">Python 3.8 or newer</a>. On Windows, tick <strong>Add python.exe to PATH</strong> during installation.</p>
+    <p>The Windows launcher installs the <strong>numpy</strong> and <strong>Pillow</strong> packages the first time it runs. Internet access is needed once for that installation.</p>
+
+    <h3>Starting it</h3>
+    <p>1. Unzip the folder somewhere; do not run it from inside the zip file.</p>
+    <p>2. Double-click <strong>Start VD Studio.bat</strong>. A black window stays open while the studio is running.</p>
+    <p>3. Your browser should open at <strong>http://localhost:8765</strong>. If it does not, enter that address manually.</p>
+    <p>4. To stop the studio, close the black window.</p>
+
+    <h3>Adding models</h3>
+    <p>Models in the <strong>imported</strong> folder, including its sub-folders, appear in the model list. Sub-folders become groups in the drop-down list.</p>
+    <p>Use <strong>Import model...</strong> to select a model. For a <strong>.gltf</strong>, select the <strong>.gltf</strong>, its <strong>.bin</strong> file and its texture images together. <strong>Import folder...</strong> can be used for a complete folder with textures.</p>
+    <p>You can also copy files into the <strong>imported</strong> folder by hand, then reload the page. Imports never overwrite an existing file; duplicate names receive a suffix such as <strong>_2</strong>.</p>
+    <p><strong>Open file (not saved)...</strong> loads a model for the current session without adding it to the list.</p>
+    <p>A model needs a skeleton and animations to be useful. Extra animations can be added with <strong>Add animations...</strong>. For external FBX textures, use <strong>Auto-match from folder...</strong>.</p>
+
+    <h3>Making a .vd</h3>
+    <p>1. Pick a model and click <strong>Load</strong>.</p>
+    <p>2. Choose <strong>H</strong> for monsters or <strong>L</strong> for animals and mounts.</p>
+    <p>3. Click <strong>Auto-map</strong> to fill the action table, then correct any rows manually.</p>
+    <p>4. Set the size, camera angle, lighting and other options. Click an action to preview it.</p>
+    <p>5. Click <strong>Render .vd</strong>. The finished file appears in the <strong>output</strong> folder. Rendering again never overwrites an earlier file; it creates <strong>_v2</strong>, <strong>_v3</strong> and so on.</p>
+
+    <h3>Weapons and attachments</h3>
+    <p>Put weapon or shield models in the <strong>weapons</strong> folder, or use <strong>Add weapon file...</strong> in the Attachments panel, then attach them to a creature bone.</p>
+
+    <h3>Folders</h3>
+    <p><strong>imported</strong> — your models<br><strong>output</strong> — finished .vd files and converted FBX copies<br><strong>weapons</strong> — attachment models</p>
+    <p>Other folders can be used from a terminal, for example: <strong>python studio.py --models "D:\my models" --out "D:\my vd" --weapons "D:\my weapons"</strong>.</p>
+
+    <h3>macOS and Linux</h3>
+    <p>Install Python 3, then run <strong>python3 -m pip install numpy Pillow</strong> in a terminal in the VD Studio folder. Start it with <strong>./start.sh</strong> or <strong>python3 studio.py</strong>.</p>
+
+    <h3>Troubleshooting</h3>
+    <p><strong>Python was not found:</strong> install Python and make sure <strong>Add python.exe to PATH</strong> was selected on Windows.</p>
+    <p><strong>The page does not load:</strong> make sure the black window is still open. If port 8765 is already used, run <strong>python studio.py --port 8800</strong> and open <strong>http://localhost:8800</strong>.</p>
+    <p><strong>A model looks wrong:</strong> check that it has a skeleton and textures, try another Facing offset and use <strong>Auto-match from folder...</strong> for external textures.</p>
+    <p><strong>The page looks old after updating:</strong> press <strong>Ctrl+F5</strong> in the browser.</p>
+  </div>
+</div>
+<script src="subpage-nav.js"></script>
+</body>
+</html>
