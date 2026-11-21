@@ -12,6 +12,7 @@
 
       link.dataset.countId = id;
       link.dataset.countName = link.textContent.trim();
+      link.dataset.originalHref = original.href;
       link.href = endpoint + '/download?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(link.dataset.countName);
 
       const span = document.createElement('span');
@@ -52,6 +53,21 @@
 
     requestBatch(0);
   }
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[data-count-id]');
+    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    event.preventDefault();
+    const recordUrl = link.href;
+    const originalHref = link.dataset.originalHref;
+
+    fetch(recordUrl, { mode: 'no-cors', cache: 'no-store', keepalive: true })
+      .catch(() => {})
+      .finally(() => {
+        window.location.href = originalHref || recordUrl;
+      });
+  });
 
   function recordVisit() {
     const sessionKey = 'vrark-page-visit-recorded-v1';
