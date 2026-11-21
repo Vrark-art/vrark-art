@@ -61,8 +61,17 @@
     event.preventDefault();
     const recordUrl = link.href;
     const originalHref = link.dataset.originalHref;
+    const countUrl = endpoint + '/api/counts?ids=' + encodeURIComponent(link.dataset.countId);
 
     fetch(recordUrl, { mode: 'no-cors', cache: 'no-store', keepalive: true })
+      .catch(() => {})
+      .then(() => new Promise(resolve => setTimeout(resolve, 250)))
+      .then(() => fetch(countUrl, { cache: 'no-store' }))
+      .then(response => response.json())
+      .then(counts => {
+        const target = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
+        if (target) target.textContent = 'Total downloads: ' + (counts[link.dataset.countId] || 0);
+      })
       .catch(() => {})
       .finally(() => {
         window.location.href = originalHref || recordUrl;
