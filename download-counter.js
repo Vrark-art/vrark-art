@@ -15,10 +15,13 @@
       link.dataset.originalHref = original.href;
       link.href = endpoint + '/download?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(link.dataset.countName);
 
-      const span = document.createElement('span');
-      span.className = 'download-count';
+      let span = link.nextElementSibling && link.nextElementSibling.classList.contains('download-count') ? link.nextElementSibling : null;
+      if (!span) {
+        span = document.createElement('span');
+        span.className = 'download-count';
+        link.insertAdjacentElement('afterend', span);
+      }
       span.textContent = 'Total downloads: …';
-      link.insertAdjacentElement('afterend', span);
     });
   }
 
