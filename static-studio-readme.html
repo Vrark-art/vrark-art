@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Static Studio — Vrark Art</title>
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
 <div class="simple-page">
@@ -42,6 +42,12 @@
     <p>The animation controls include Play/Pause, FPS, a frame slider and per-frame or all-frame shifting. An anchor frame can be shown through the current frame to help align the sequence. Animations can be sliced with <strong>Vertical strips</strong> or <strong>44 × 44 diamonds</strong>.</p>
     <p>With <strong>No slicing</strong>, saving creates a ZIP containing the frames and a looping transparent <strong>_preview.gif</strong>. When sliced, each tile gets its own folder with the tile frames and CSV. The GIF preview uses hard transparency, so soft glow edges may look rougher than the PNG frames.</p>
     <p><strong>Keep frames</strong> can reduce the frame count while retaining the first and last frames. <strong>Scale %</strong> downsizes every frame with transparency-aware resampling. Both options work before placing and slicing.</p>
+
+    <h3>Mouse wheel on dropdowns</h3>
+    <p>Hover over a dropdown and turn the mouse wheel to move to the previous or next entry without opening it. This works for the folder and file lists on the Place page, and for the folder, camera and style lists in the render studio. Hold <strong>Ctrl</strong> or <strong>Shift</strong> to scroll the page as usual.</p>
+
+    <h3>No pure black or white</h3>
+    <p>On the Place page, <strong>No black/white</strong> is enabled by default under Output. It applies to saved single items, sliced pieces, animation frames and preview files. Very dark or very light colours are adjusted so they are not lost in UO&rsquo;s colour limitations. Untick the option to save the colours exactly as rendered.</p>
 
     <h3>Important notes</h3>
     <p>Static model rendering uses the bind pose; animation sequences are handled separately on the Place and slice page. Shadows already baked into textures are not removed. The studio does not currently create UO item art (<strong>.mul</strong> or <strong>.uop</strong>) output.</p>
