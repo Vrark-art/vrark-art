@@ -42,7 +42,8 @@ h2 { margin: 0 0 18px; font-size: clamp(1.1rem, 2.2vw, 1.8rem); }
 .static-filters { margin: -6px 0 16px; color: #a9875c; font-size: .9rem; line-height: 1.6; }
 .static-filters a { margin: 0 3px; }
 .static-filters a[aria-current="page"] { color: #f1d49a; font-weight: 700; }
-.section-links { margin: -10px 0 10px; font-size: .9rem; }
+.section-links { margin: 6px 0 0; color: #a9875c; font-size: .9rem; line-height: 1.6; }
+.section-links a { color: #e2bd78; }
 .category-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
 .category-group { padding: 14px; border: 1px solid #7d5b37; background: rgba(43, 25, 15, .72); }
 .category-group h2 { margin: 0; font-size: 1.05rem; }
