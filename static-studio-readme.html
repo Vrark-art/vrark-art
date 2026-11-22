@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Static Studio — Vrark Art</title>
+<link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+<div class="simple-page">
+  <p class="section-kicker">Tools</p>
+  <h1>Static Studio</h1>
+  <p>Static Studio renders 3D models into static art for Ultima Online: one PNG per object and view, with a transparent background, lighting and cropping suitable for UO static art. It uses a NumPy software renderer and does not require Blender or a graphics card.</p>
+
+  <div class="tool-list">
+    <h3>Starting it</h3>
+    <p>Unzip the download anywhere, open the folder and double-click <strong>Start UO Static Studio.bat</strong>. Keep the black window open while the program runs. Open <strong>http://localhost:8766</strong> in your browser. After changing a program file, restart the batch file and press <strong>Ctrl+F5</strong>.</p>
+    <p>Python 3.8 or newer, <strong>numpy</strong> and <strong>Pillow</strong> are required. The launcher installs the two packages when needed. The fast native renderer is shown as <strong>native renderer: ON</strong>; <strong>OFF</strong> uses the slower fallback but produces the same result.</p>
+
+    <h3>Making a model</h3>
+    <p>The preferred format is glTF Binary (<strong>.glb</strong>). In Blender, use <strong>File → Export → glTF 2.0</strong>, choose <strong>glTF Binary (.glb)</strong>, include the selected object and armature, use <strong>+Y Up</strong>, and export materials and images automatically.</p>
+    <p>Textures are exported when an image is connected to the Principled BSDF Base Color input. Normal maps should use a Non-Color image through a Normal Map node. A Bump node should be baked to a normal map first.</p>
+    <p>The studio also reads <strong>.obj</strong> with <strong>.mtl</strong>, <strong>.dae</strong> and binary <strong>.fbx</strong> files. Put models in the <strong>my_models</strong> folder, or add other folders from the page.</p>
+
+    <h3>The camera file</h3>
+    <p><strong>UO_static_render.blend</strong> supplies the cameras, orthographic scale, output size and pixel aspect. Four cameras named <strong>ItemCam_1</strong> through <strong>ItemCam_4</strong> are supported. To use another camera setup, start the program with <strong>--blend yourfile.blend</strong>.</p>
+
+    <h3>Using the studio</h3>
+    <p>Choose a model and press <strong>Load</strong>, then select a camera and rotation. Adjust the style, lighting, picture settings, curves, quality and output size. The preview updates as you work. Press <strong>Build PNG</strong> to write the result to <strong>static_out</strong>. Files are never overwritten; later versions receive <strong>_v2</strong>, <strong>_v3</strong> and so on.</p>
+    <p>The output is cropped to the visible pixels and includes the model-origin position for later placement work. The <strong>four rotations</strong> option writes the chosen angle plus 0, 90, 180 and 270 degrees.</p>
+
+    <h3>Place and slice</h3>
+    <p>Open <strong>Place and slice renders</strong> at the top of the left panel, or visit <strong>http://localhost:8766/place</strong>. Choose a render, set the tile footprint, move the art into position and select one of these modes:</p>
+    <p><strong>Vertical strips</strong> for tall or multi-tile objects, <strong>44 × 44 diamonds</strong> for flat items, or <strong>No slicing</strong> for one PNG.</p>
+    <p>Choose a direction and use <strong>Preview pieces</strong> or <strong>Save pieces</strong>. Saving creates the PNG pieces and an offsets CSV. With <strong>Save as .zip</strong>, it also creates a ZIP and an unsliced <strong>_preview.png</strong>. The output folder can be chosen in the interface.</p>
+
+    <h3>Backgrounds and model folders</h3>
+    <p>Place 44 × 44 PNG tiles in the <strong>Backgrounds</strong> folder to make them available in the preview. Add model folders from the page or with <strong>--more "FOLDER"</strong> on the batch-file command line.</p>
+
+    <h3>Important notes</h3>
+    <p>Only the bind pose is rendered; animations are not used. Shadows already baked into textures are not removed. The studio does not currently create UO item art (<strong>.mul</strong> or <strong>.uop</strong>) output.</p>
+
+    <h3>Troubleshooting</h3>
+    <p><strong>The window closes or Python is missing:</strong> install Python 3.8 or newer and make sure it is available on your PATH.</p>
+    <p><strong>The page does not load:</strong> keep the black window open. If port 8766 is already in use, run <strong>python studio_static.py --port 8800</strong> and open <strong>http://localhost:8800</strong>.</p>
+    <p><strong>A model looks wrong:</strong> check its skeleton, textures and up-axis setting. Try the other Facing offset values and use <strong>Auto-match from folder...</strong> for external textures.</p>
+  </div>
+</div>
+<script src="subpage-nav.js"></script>
+</body>
+</html>
